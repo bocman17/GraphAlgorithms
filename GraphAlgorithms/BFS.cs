@@ -2,7 +2,6 @@
 {
     public class BFS
     {
-
         public static bool HasPathBFS<T1,T2>(T1 graph, T2 source, T2 destination) where T1 : IGraph<T2>
         {
             Queue<T2> queue = new Queue<T2>();

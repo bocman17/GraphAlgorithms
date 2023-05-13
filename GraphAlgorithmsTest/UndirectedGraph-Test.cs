@@ -1,5 +1,3 @@
-using GraphAlgorithms;
-
 namespace GraphAlgorithmsTest
 {
     [TestFixture]

@@ -1,6 +1,3 @@
-using GraphAlgorithms;
-using System.Collections.Immutable;
-
 namespace GraphAlgorithmsTest
 {
     [TestFixture]
