@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GraphAlgorithms
+﻿namespace GraphAlgorithms
 {
     public class DirectedGraph<T> : Graph<T> where T : notnull
     {
@@ -23,7 +17,7 @@ namespace GraphAlgorithms
         public void BFSTraverseIterative(T source)
         {
             Queue<T> queue = new Queue<T>();
-            List<T> visited = new List<T>();
+            HashSet<T> visited = new HashSet<T>();
             queue.Enqueue(source);
 
             while (queue.Count > 0)
@@ -47,7 +41,7 @@ namespace GraphAlgorithms
         {
             Stack<T> stack = new Stack<T>();
             stack.Push(source);
-            List<T> visited = new List<T>();
+            HashSet<T> visited = new HashSet<T>();
 
             while (stack.Count > 0)
             {
@@ -66,9 +60,9 @@ namespace GraphAlgorithms
         }
         public void DFSTraverseRecursive(T source)
         {
-            List<T> visited = new List<T>();
+            HashSet<T> visited = new HashSet<T>();
 
-            void DFSHelper(T source, List<T> visited)
+            void DFSHelper(T source, HashSet<T> visited)
             {
                 if (!visited.Contains(source))
                 {

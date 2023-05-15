@@ -36,6 +36,22 @@ namespace GraphAlgorithmsTest
         }
 
         [Test]
+        public void AddNodeDuplicateTest()
+        {
+            UndirectedGraph<char> graph = new UndirectedGraph<char>();
+            graph.AddNode('a');
+            graph.AddNode('a');
+            List<char> result = new List<char>();
+            List<char> expected = new List<char>() { 'a' };
+            foreach (KeyValuePair<char, List<char>> kvp in graph.AdjacencyList)
+            {
+                result.Add(kvp.Key);
+            }
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [Test]
         public void AddEdgeTest()
         {
             UndirectedGraph<char> graph1 = new UndirectedGraph<char>();

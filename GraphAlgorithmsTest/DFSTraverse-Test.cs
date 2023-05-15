@@ -1,7 +1,7 @@
 ﻿namespace GraphAlgorithmsTest
 {
     [TestFixture]
-    public class DFSTraverse
+    public class DFSTraverse_Test
     {
         [Test]
         public void DirectedTraverseIterativeNoLoopTest()

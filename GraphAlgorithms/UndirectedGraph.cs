@@ -10,6 +10,10 @@ namespace GraphAlgorithms
     {
         public new void AddEdge(T source, T destination)
         {
+            if(EqualityComparer<T>.Default.Equals(source, destination))
+            {
+                throw new ArgumentException("Source and destination cannot be the same!");
+            }
             if (!AdjacencyList.ContainsKey(source))
             {
                 AddNode(source);
@@ -29,6 +33,10 @@ namespace GraphAlgorithms
         }
         public new void AddEdges(T[,] edges)
         {
+            if(edges.GetLength(1) != 2)
+            {
+                throw new ArgumentException("Input must have exactly 2 nodes!");
+            }
             for (int i = 0; i < edges.GetLength(0); i++)
             {
                 AddEdge(edges[i, 0], edges[i, 1]);

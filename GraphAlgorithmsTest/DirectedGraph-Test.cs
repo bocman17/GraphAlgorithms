@@ -36,6 +36,22 @@ namespace GraphAlgorithmsTest
         }
 
         [Test]
+        public void AddNodeDuplicateTest()
+        {
+            DirectedGraph<char> graph = new DirectedGraph<char>();
+            graph.AddNode('a');
+            graph.AddNode('a');
+            List<char> result = new List<char>();
+            List<char> expected = new List<char>() { 'a' };
+            foreach (KeyValuePair<char, List<char>> kvp in graph.AdjacencyList)
+            {
+                result.Add(kvp.Key);
+            }
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [Test]
         public void AddEdgeTest()
         {
             DirectedGraph<char> graph1 = new DirectedGraph<char>();
@@ -240,7 +256,7 @@ namespace GraphAlgorithmsTest
                     }
                 },
             };
-            
+
             return TestDict;
         }
     }
