@@ -23,9 +23,9 @@ namespace GraphAlgorithms
         }
         public void AddNode(T node)
         {
-            if (!_adjacencyList.ContainsKey(node))
+            if (!AdjacencyList.ContainsKey(node))
             {
-                _adjacencyList[node] = new List<T>();
+                AdjacencyList[node] = new List<T>();
             }
         }
 
@@ -35,17 +35,17 @@ namespace GraphAlgorithms
             {
                 throw new ArgumentException("Source and destination cannot be the same!");
             }
-            if (!_adjacencyList.ContainsKey(source))
+            if (!AdjacencyList.ContainsKey(source))
             {
                 AddNode(source);
             }
-            if (!_adjacencyList[source].Contains(destination))
+            if (!AdjacencyList[source].Contains(destination))
             {
                 AddNode(destination);
             }
             if (!HasEdge(source, destination))
             {
-                _adjacencyList[source].Add(destination);
+                AdjacencyList[source].Add(destination);
             }
         }
 
@@ -62,18 +62,18 @@ namespace GraphAlgorithms
         }
         public List<T> GetOutGoingNeighbors(T node)
         {
-            if (!_adjacencyList.ContainsKey(node))
+            if (!AdjacencyList.ContainsKey(node))
             {
                 return new List<T>();
             }
-            Console.WriteLine(_adjacencyList[node]);
-            return _adjacencyList[node].ToList();
+            Console.WriteLine(AdjacencyList[node]);
+            return AdjacencyList[node].ToList();
         }
         public List<T> GetIncomingNeighbors(T node)
         {
             List<T> incomingNeighbors = new List<T>();
 
-            foreach (KeyValuePair<T, List<T>> entry in _adjacencyList)
+            foreach (KeyValuePair<T, List<T>> entry in AdjacencyList)
             {
                 if (entry.Value.Contains(node))
                 {
@@ -85,40 +85,40 @@ namespace GraphAlgorithms
 
         public bool HasEdge(T source, T destination)
         {
-            if (!_adjacencyList.ContainsKey(source))
+            if (!AdjacencyList.ContainsKey(source))
             {
                 return false;
             }
-            return _adjacencyList[source].Contains(destination);
+            return AdjacencyList[source].Contains(destination);
         }
         public void RemoveEdge(T source, T destination)
         {
-            if (!_adjacencyList.ContainsKey(source) || !_adjacencyList.ContainsKey(destination))
+            if (!AdjacencyList.ContainsKey(source) || !AdjacencyList.ContainsKey(destination))
             {
                 return;
             }
-            _adjacencyList[source].Remove(destination);
+            AdjacencyList[source].Remove(destination);
         }
 
         public void RemoveNode(T node)
         {
-            if (!_adjacencyList.ContainsKey(node))
+            if (!AdjacencyList.ContainsKey(node))
             {
                 return;
             }
-            foreach (KeyValuePair<T, List<T>> kvp in _adjacencyList)
+            foreach (KeyValuePair<T, List<T>> kvp in AdjacencyList)
             {
                 if (kvp.Value.Contains(node))
                 {
-                    _adjacencyList[kvp.Key].Remove(node);
+                    AdjacencyList[kvp.Key].Remove(node);
                 }
             }
-            foreach (T neighbor in _adjacencyList[node])
+            foreach (T neighbor in AdjacencyList[node])
             {
-                _adjacencyList[neighbor].Remove(node);
+                AdjacencyList[neighbor].Remove(node);
             }
 
-            _adjacencyList.Remove(node);
+            AdjacencyList.Remove(node);
         }
     }
 }

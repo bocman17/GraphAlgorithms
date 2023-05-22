@@ -10,7 +10,7 @@ namespace GraphAlgorithms
     {
         public new void AddEdge(T source, T destination)
         {
-            if(EqualityComparer<T>.Default.Equals(source, destination))
+            if (EqualityComparer<T>.Default.Equals(source, destination))
             {
                 throw new ArgumentException("Source and destination cannot be the same!");
             }
@@ -33,13 +33,47 @@ namespace GraphAlgorithms
         }
         public new void AddEdges(T[,] edges)
         {
-            if(edges.GetLength(1) != 2)
+            if (edges.GetLength(1) != 2)
             {
                 throw new ArgumentException("Input must have exactly 2 nodes!");
             }
             for (int i = 0; i < edges.GetLength(0); i++)
             {
                 AddEdge(edges[i, 0], edges[i, 1]);
+            }
+        }
+
+        public void AddGrid(T[,] grid)
+        {
+            int numRows = grid.GetLength(0);
+            int numCols = grid.GetLength(1);
+
+            for (int row = 0; row < numRows; row++)
+            {
+                for (int col = 0; col < numCols; col++)
+                {
+                    T node = grid[row, col];
+                    AddNode(node);
+                }
+            }
+            for (int row = 0; row < numRows; row++)
+            {
+                for (int col = 0; col < numCols; col++)
+                {
+                    T node = grid[row, col];
+
+                    if (col < numCols - 1)
+                    {
+                        T rightNeighbor = grid[row, col + 1];
+                        AddEdge(node, rightNeighbor);
+                    }
+
+                    if (row < numRows - 1)
+                    {
+                        T bottomNeighbor = grid[row + 1, col];
+                        AddEdge(node, bottomNeighbor);
+                    }
+                }
             }
         }
         public new List<T> GetIncomingNeighbors(T node)

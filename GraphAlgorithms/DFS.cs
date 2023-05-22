@@ -46,6 +46,40 @@
             return count;
         }
 
+        public static int LargestComponentCount<T1, T2>(T1 graph) where T1: Graph<T2> where T2: notnull
+        {
+            HashSet<T2> visited = new HashSet<T2>();
+            int count = 0;
+
+            foreach (KeyValuePair<T2, List<T2>> kvp in graph.AdjacencyList)
+            {
+                if (!visited.Contains(kvp.Key))
+                {
+                    count = Math.Max(count, DFSCountRecursive(graph.AdjacencyList, kvp.Key, visited));
+                }
+            }
+            return count;
+        }
+
+        private static int DFSCountRecursive<T>(Dictionary<T, List<T>> adjacencyList, T source, HashSet<T> visited) where T : notnull
+        {
+            if (visited.Contains(source))
+            {
+                return 0;
+            }
+            visited.Add(source);
+
+            int count = 1;
+
+            foreach (var neighbor in adjacencyList[source])
+            {
+                if (!visited.Contains(neighbor))
+                {
+                   count += DFSCountRecursive(adjacencyList, neighbor, visited);
+                }
+            }
+            return count;
+        }
         private static void DFSTraverseRecursive<T>(Dictionary<T, List<T>> adjacencyList, T source, HashSet<T> visited) where T : notnull
         {
             visited.Add(source);
