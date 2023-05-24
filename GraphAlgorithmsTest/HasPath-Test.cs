@@ -304,19 +304,5 @@ namespace GraphAlgorithmsTest
 
             Assert.That(result, Is.False);
         }
-
-        private static List<char[,]> edges = new List<char[,]>()
-        {
-            new char[,]
-            {
-                { 'f', 'g' },
-                { 'f', 'i'},
-                { 'g', 'h' },
-                { 'i', 'g' },
-                { 'i', 'k' },
-                { 'j', 'i' },
-            },
-
-        };
     }
 }

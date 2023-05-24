@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -78,23 +79,22 @@ namespace GraphAlgorithms
 
             return true;
         }
-
-        public static int MinIslandSizeGrid(char[,] grid)
+        public static int MinIslandSizeGridGraph(GridGraph<char> grid)
         {
-            HashSet<(int, int)> visited = new HashSet<(int, int)>();
+            HashSet<Node<char>> visited = new HashSet<Node<char>>();
             int size = 0;
-            int currentSize = 0;
 
-            for (int r = 0; r < grid.GetLength(0); r++)
+            foreach (var node in grid.AdjacencyList.Keys)
             {
-                for (int c = 0; c < grid.GetLength(1); c++)
+                if (node.Value == Land && !visited.Contains(node))
                 {
-                    int returnedSize = ExploreMinIsland(grid, r, c, visited, currentSize);
-                    if(returnedSize > 0 && size == 0)
+                    visited.Add(node);
+                    int returnedSize = ExploreMinIslandGridGraph(node, grid, visited);
+                    if (returnedSize > 0 && size == 0)
                     {
                         size = returnedSize;
                     }
-                    else if(returnedSize > 0 && size != 0)
+                    else if (returnedSize > 0 && size != 0)
                     {
                         size = Math.Min(size, returnedSize);
                     }
@@ -103,7 +103,44 @@ namespace GraphAlgorithms
             return size;
         }
 
-        private static int ExploreMinIsland(char[,] grid, int r, int c, HashSet<(int, int)> visited, int currentSize)
+        private static int ExploreMinIslandGridGraph(Node<char> source, GridGraph<char> grid, HashSet<Node<char>> visited)
+        {
+            int current = 1;
+            foreach (var neighbor in grid.AdjacencyList[source])
+            {
+                if (!visited.Contains(neighbor) && neighbor.Value == Land)
+                {
+                    visited.Add(neighbor);
+                    current += ExploreMinIslandGridGraph(neighbor, grid, visited);
+                }
+            }
+            return current;
+        }
+
+        public static int MinIslandSizeGrid(char[,] grid)
+        {
+            HashSet<(int, int)> visited = new HashSet<(int, int)>();
+            int size = 0;
+
+            for (int r = 0; r < grid.GetLength(0); r++)
+            {
+                for (int c = 0; c < grid.GetLength(1); c++)
+                {
+                    int returnedSize = ExploreMinIslandGrid(grid, r, c, visited);
+                    if (returnedSize > 0 && size == 0)
+                    {
+                        size = returnedSize;
+                    }
+                    else if (returnedSize > 0 && size != 0)
+                    {
+                        size = Math.Min(size, returnedSize);
+                    }
+                }
+            }
+            return size;
+        }
+
+        private static int ExploreMinIslandGrid(char[,] grid, int r, int c, HashSet<(int, int)> visited)
         {
             if (!(r >= 0 && r < grid.GetLength(0)) || !(c >= 0 && c < grid.GetLength(1)))
             {
@@ -120,12 +157,12 @@ namespace GraphAlgorithms
             }
             visited.Add(position);
 
-            currentSize = 1;
+            int currentSize = 1;
 
-            currentSize += ExploreMinIsland(grid, r - 1, c, visited, currentSize);
-            currentSize += ExploreMinIsland(grid, r + 1, c, visited, currentSize);
-            currentSize += ExploreMinIsland(grid, r, c - 1, visited, currentSize);
-            currentSize += ExploreMinIsland(grid, r, c + 1, visited, currentSize);
+            currentSize += ExploreMinIslandGrid(grid, r - 1, c, visited);
+            currentSize += ExploreMinIslandGrid(grid, r + 1, c, visited);
+            currentSize += ExploreMinIslandGrid(grid, r, c - 1, visited);
+            currentSize += ExploreMinIslandGrid(grid, r, c + 1, visited);
 
             return currentSize;
         }

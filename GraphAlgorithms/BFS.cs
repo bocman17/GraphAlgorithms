@@ -41,6 +41,10 @@
                 {
                     return distance;
                 }
+                if (!graph.AdjacencyList.ContainsKey(current))
+                {
+                    return -1;
+                }
                 foreach (var neighbor in graph.AdjacencyList[current])
                 {
                     if (!visited.Contains(neighbor))

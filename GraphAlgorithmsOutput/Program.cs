@@ -22,27 +22,31 @@ Console.WriteLine("Largest Component Count");
 Console.WriteLine(DFS.LargestComponentCount<UndirectedGraph<int>, int>(graph2));
 Console.WriteLine("Largest Component Count");
 Console.WriteLine(BFS.ShortestPathBFS(graph2, 0, 8));
-Console.WriteLine(BFS.ShortestPathBFS(graph1, 'w', 'b'));
+Console.WriteLine("HERE!!!!");
+Console.WriteLine(BFS.ShortestPathBFS(graph1, 'w', 'y'));
 
 Node<char>[,] grid = new Node<char>[,]
 {
     {
-        new Node<char>('W'), new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
+        new Node<char>('W'), new Node<char>('L'), new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
     },
     {
-        new Node<char>('W'), new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
+        new Node<char>('W'), new Node<char>('W'), new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
     },
     {
-        new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
+        new Node<char>('W'), new Node<char>('W'), new Node<char>('L'), new Node<char>('L'), new Node<char>('W'), new Node<char>('W'),
     },
     {
-        new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('L'), new Node<char>('L'), new Node<char>('W'),
+        new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('L'), new Node<char>('L'), new Node<char>('L'),
     },
     {
-        new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('L'), new Node<char>('L'),
+        new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
     },
     {
         new Node<char>('L'), new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
+    },
+    {
+        new Node<char>('L'), new Node<char>('L'), new Node<char>('L'), new Node<char>('W'), new Node<char>('W'), new Node<char>('W'),
     }
 };
 
@@ -51,7 +55,10 @@ GridGraph<char> graph3 = new GridGraph<char>();
 
 graph3.AddGrid(grid);
 graph3.Print();
+Console.WriteLine("Island Count Grid Graph");
 Console.WriteLine(Grid.IslandCountGridGraph(graph3));
+Console.WriteLine("Min Island Size Grid Graph");
+Console.WriteLine(Grid.MinIslandSizeGridGraph(graph3));
 
 char[,] gridChar = new char[,]
 {
@@ -62,18 +69,34 @@ char[,] gridChar = new char[,]
         'W', 'W', 'W', 'W', 'W', 'W'
     },
     {
-        'W', 'W', 'W', 'W', 'W', 'W'
+        'W', 'L', 'L', 'L', 'L', 'W'
     },
     {
-        'W', 'W', 'W', 'W', 'W', 'W'
+        'W', 'L', 'W', 'W', 'L', 'W'
     },
     {
-        'W', 'W', 'W', 'W', 'W', 'W'
+        'W', 'L', 'W', 'W', 'L', 'W'
     },
     {
-        'W', 'W', 'W', 'W', 'W', 'W'
+        'W', 'L', 'W', 'W', 'L', 'W'
     },
 };
 
+Console.WriteLine("Island Count Grid");
 Console.WriteLine(Grid.IslandCountGrid(gridChar));
+Console.WriteLine("Island Count Grid");
 Console.WriteLine(Grid.MinIslandSizeGrid(gridChar));
+
+GridGraph<char> gridGraph = new GridGraph<char>();
+char[,] grid77 = new char[,]
+{
+                {'W', 'W', 'W', 'W', 'W' },
+                {'W', 'W', 'W', 'W', 'W' },
+                {'W', 'W', 'W', 'W', 'W' },
+                {'W', 'W', 'W', 'W', 'W' },
+                {'W', 'W', 'W', 'W', 'W' },
+                {'W', 'W', 'W', 'W', 'W' },
+};
+gridGraph.AddGrid(Node<char>.MakeNodeGrid(grid77));
+int result = Grid.IslandCountGridGraph(gridGraph);
+Console.WriteLine(result);
